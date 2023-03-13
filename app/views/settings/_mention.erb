@@ -4,3 +4,8 @@
   <%= select_tag('settings[trigger]',
                  options_for_select(['@',':','~','!','#','%'],settings['trigger'])) %>
 </p>
+<p>
+  <label for="settings[global_mentions]">Global Mantions</label>
+  <%= select_tag('settings[global_mentions]',
+                 options_for_select([true,false],settings[global_mentions])) %>
+</p>

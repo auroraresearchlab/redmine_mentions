@@ -3,7 +3,8 @@
 <%= stylesheet_link_tag 'auto_complete.css', :plugin => 'redmine_mentions' %>
 <% regex_find = '/\B'+Setting.plugin_redmine_mentions['trigger']+'(\w*)$/i'%>
 
-<% if @project %>
+
+<% if @project && Setting.plugin_redmine_mentions['trigger'] == false %>
   <% users = @project.users.to_a.delete_if{|u| (u.type != 'User' || u.mail.empty?)}%>
 <% else %>
   <% users = User.active.to_a.delete_if{|u| (u.type != 'User' || u.mail.empty?)}%>
