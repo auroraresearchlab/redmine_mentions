@@ -5,14 +5,14 @@
 <script>
   $(document).ready(function() {
     <% trigger = Regexp.escape(Setting.plugin_redmine_mentions['trigger']) %>
-    <% users = if User.active.select { |u| u.is_a?(User) && !u.mail.empty? }
+    <% users = if User.active.select{ |u| u.is_a?(User) && !u.mail.empty? }
                end %>
-    <% users_regex = users.map { |u| "#{trigger}#{u.login}" }.join('|') %>
+    <% users_regex = users.collect{ |u| "#{trigger}#{u.login}" }.join('|') %>
     
     $('#issue_notes,#issue_description').textcomplete([
       {
-        mentions: <%= users.map { |u| "#{u.firstname} #{u.lastname} - <small>#{u.login}</small>" }.to_json %>,
-        match: new RegExp('\\B' + <%= trigger %> + '(\\w|[.])*)$', 'i'),
+        mentions: <%= users.collect{ |u| "#{u.firstname} #{u.lastname} - <small>#{u.login}</small>" }.to_json %>,
+        match: new RegExp('\\B' + <%= trigger %> + '(\\w*)$', 'i'),
         search: function(term, callback) {
           var matches = this.mentions.filter(function(mention) {
             return mention.toLowerCase().indexOf(term.toLowerCase()) !== -1;
