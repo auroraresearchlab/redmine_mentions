@@ -4,7 +4,7 @@
 <% regex_find = '/\B'+Setting.plugin_redmine_mentions['trigger']+'((\w|[.])*)$/i'%>
 
 
-<% if @project && Setting.plugin_redmine_mentions['trigger'] == false %>
+<% if @project && Setting.plugin_redmine_mentions['global_mentions'] == false %>
   <% users = @project.users.to_a.delete_if{|u| (u.type != 'User' || u.mail.empty?)}%>
 <% else %>
   <% users = User.active.to_a.delete_if{|u| (u.type != 'User' || u.mail.empty?)}%>
